@@ -6,8 +6,9 @@ import java.util.concurrent.*;
 
 public class PrimesFinder {
     private static final int NUM_THREADS = Runtime.getRuntime().availableProcessors(); // Количество потоков, которое будет использоваться
+    //private static final int NUM_PRIMES_TO_FIND = 1000; // Количество простых чисел, которые нужно найти
     private static final int BATCH_SIZE = 1000; // Размер пакета чисел, который будет обрабатываться каждым потоком
-    private static final int NUM_PRIMES_TO_FIND = 1000; // Количество простых чисел, которые нужно найти
+
 
     public static void main(String[] args) {
         long time = System.currentTimeMillis();
@@ -38,15 +39,9 @@ public class PrimesFinder {
             e.printStackTrace();
         }
 
-        // Сортируем список простых чисел и выводим на экран
-        List<Integer> sortedPrimes = new ArrayList<>(primes);
-        //List<Integer> sortedNumbers = sortedPrimes.parallelStream().sorted().toList();
-
-        for (int i = 0; i < NUM_PRIMES_TO_FIND && i < sortedPrimes.size(); i++) {
-            System.out.println(sortedPrimes.get(i));
-        }
+        primes.forEach(System.out::println);
         System.out.println("Время выполнения: " + (System.currentTimeMillis() - time) + " ms");
-        System.out.println(sortedPrimes.size());
+        System.out.println(primes.size());
     }
 }
 
