@@ -3,25 +3,21 @@ package org.example;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
-// Класс задачи для нахождения простых чисел в заданном диапазоне
 class PrimeFinderCheckTask implements Runnable {
-    private final int number;
     private final ArrayBlockingQueue<Integer> primes;
     private final AtomicInteger primesCount;
 
-    public PrimeFinderCheckTask(ArrayBlockingQueue<Integer> primes, int number, AtomicInteger primesCount) {
-        this.number = number;
+    public PrimeFinderCheckTask(ArrayBlockingQueue<Integer> primes, AtomicInteger primesCount) {
         this.primes = primes;
         this.primesCount = primesCount;
     }
 
     @Override
     public void run() {
-        // Проверяем каждое число в заданном диапазоне на простоту и добавляем его в очередь, если оно простое
+        int num = primesCount.incrementAndGet();
         try{
-            if (isPrime(number)) {
-                primes.add(number);
-                primesCount.incrementAndGet();
+            if (isPrime(num)) {
+                primes.add(num);
             }
         } catch (Exception e){
             Thread.currentThread().interrupt();
